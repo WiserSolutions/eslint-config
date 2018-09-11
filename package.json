@@ -1,5 +1,5 @@
 {
-  "name": "@wisepricer/eslint-config",
+  "name": "@wisersolutions/eslint-config",
   "description": "Eslint configurations used by WisePricer",
   "version": "1.0.0",
   "main": "index.js",
