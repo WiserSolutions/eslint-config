@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/WisePricer/eslint-config#readme",
   "dependencies": {
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.11.1",
     "lodash.merge": "^4.6.1"
   },
   "peerDependencies": {
