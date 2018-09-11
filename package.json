@@ -1,6 +1,6 @@
 {
   "name": "@wisersolutions/eslint-config",
-  "description": "Eslint configurations used by WisePricer",
+  "description": "Eslint configurations used by Wiser Solutions, Inc.",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
