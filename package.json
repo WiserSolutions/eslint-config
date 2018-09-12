@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WisePricer/eslint-config.git"
+    "url": "git+https://github.com/WiserSolutions/eslint-config.git"
   },
   "keywords": [
     "eslint",
@@ -17,9 +17,9 @@
   "author": "Jan Konopásek",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/WisePricer/eslint-config/issues"
+    "url": "https://github.com/WiserSolutions/eslint-config/issues"
   },
-  "homepage": "https://github.com/WisePricer/eslint-config#readme",
+  "homepage": "https://github.com/WiserSolutions/eslint-config#readme",
   "dependencies": {
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.11.1",
