@@ -21,12 +21,12 @@
   },
   "homepage": "https://github.com/WiserSolutions/eslint-config#readme",
   "dependencies": {
-    "lodash.merge": "^4.6.1"
+    "lodash.merge": "^4.6.2"
   },
   "peerDependencies": {
-    "eslint": ">=5",
-    "eslint-config-prettier": ">=3",
+    "eslint": ">=6",
+    "eslint-config-prettier": ">=6",
     "eslint-plugin-react": ">=7",
-    "babel-eslint": ">=9"
+    "babel-eslint": ">=10"
   }
 }
