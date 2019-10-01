@@ -19,6 +19,7 @@ module.exports = {
   'rules': {
     'arrow-body-style': ['error', 'as-needed'],
     'no-shadow': 'error', // shadowing is an easy way to let babel/webpack make mistakes
+    'prefer-const': 'error',
     'semi': ['error', 'never'],
     'space-before-function-paren': ['error', {
       'anonymous': 'never',
