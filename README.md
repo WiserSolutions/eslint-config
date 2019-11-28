@@ -12,6 +12,8 @@ Every JavaScript project should start by extending the base config.
 }
 ```
 
+**Note:** The base config requires the `babel-eslint` parser installed.
+
 ### Extensions
 
 In some specific use-cases (e.g. application projects) or when using some common libraries (e.g. `jest`),
