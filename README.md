@@ -32,7 +32,7 @@ The following extensions are provided:
 
 - `cypress` - for applications that use Cypress for end-to-end testing,
 - `jest` - for any project using Jest for unit testing,
-- `react` - for applications or component libraries using React,
+- `react` - for applications or component libraries using React (requires `eslint-plugin-react`!),
 - `enzyme` - for applications or component libraries that use Enzyme for testing React components,
 - `quadro-application` - for applications built with the `quadro` framework.
 
