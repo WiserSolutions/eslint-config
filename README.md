@@ -1,9 +1,37 @@
 # eslint-config
 
-Eslint configurations used by Wiser Solutions, Inc.:
+Baseline ESLint configurations used by Wiser Solutions, Inc.
 
-- basic configuration (`extend: '@wisersolutions'`)
-- extended configurations for:
-    - packages using `jest`: `extend: '@wisersolutions/eslint-config/jest'`
-    - packages using `jest` & `jest-enzyme`: `extend: '@wisersolutions/eslint-config/jest-enzyme'`
-    - `quadro` apps (`extend: '@wisersolutions/eslint-config/quadro'`)
+### Base Config
+
+Every JavaScript project should start by extending the base config.
+
+```json
+{
+  "extends": "@wisersolutions"
+}
+```
+
+### Extensions
+
+In some specific use-cases (e.g. application projects) or when using some common libraries (e.g. `jest`),
+use the provided additional config extensions.
+
+```json
+{
+  "extends": [
+    "@wisersolutions",
+    "@wisersolutions/eslint-config/jest",
+    "@wisersolutions/eslint-config/cypress",
+    "…"
+  ]
+}
+```
+
+The following extensions are provided:
+
+- `cypress` - for applications that use Cypress for end-to-end testing,
+- `jest` - for any project using Jest for unit testing,
+- `react` - for applications or component libraries using React,
+- `enzyme` - for applications or component libraries that use Enzyme for testing React components,
+- `quadro-application` - for applications built with the `quadro` framework.

@@ -1,8 +1,4 @@
-const merge = require('lodash.merge')
-
-const baseConfig = require('./index')
-
-module.exports = merge({}, baseConfig, {
+module.exports = {
   'globals': {
     'Q': true
   },
@@ -24,17 +20,6 @@ module.exports = merge({}, baseConfig, {
       }
     },
     {
-      'files': ['cypress/**/*.*'],
-      'env': {
-        'jasmine': true,
-        'mocha': true
-      },
-      'globals': {
-        'Cypress': true,
-        'cy': true
-      }
-    },
-    {
       'files': ['test/**/*.*'],
       'env': {
         'mocha': true
@@ -47,4 +32,4 @@ module.exports = merge({}, baseConfig, {
       }
     }
   ]
-})
+}

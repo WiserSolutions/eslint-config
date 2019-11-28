@@ -1,8 +1,4 @@
-const merge = require('lodash.merge')
-
-const baseConfig = require('./index')
-
-module.exports = merge({}, baseConfig, {
+module.exports = {
   'overrides': [
     {
       'files': ['**/*.test.js'],
@@ -11,4 +7,4 @@ module.exports = merge({}, baseConfig, {
       }
     }
   ]
-})
+}
