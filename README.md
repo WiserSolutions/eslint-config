@@ -32,9 +32,9 @@ use the provided additional config extensions.
 
 The following extensions are provided:
 
-- `cypress` - for applications that use Cypress for end-to-end testing,
+- `cypress` - for applications that use Cypress for end-to-end testing **(requires `eslint-plugin-cypress`)**,
 - `jest` - for any project using Jest for unit testing,
-- `react` - for applications or component libraries using React (requires `eslint-plugin-react`!),
+- `react` - for applications or component libraries using React **(requires `eslint-plugin-react`)**,
 - `enzyme` - for applications or component libraries that use Enzyme for testing React components,
 - `quadro-application` - for applications built with the `quadro` framework.
 
