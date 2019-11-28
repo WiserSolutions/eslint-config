@@ -20,9 +20,6 @@
     "url": "https://github.com/WiserSolutions/eslint-config/issues"
   },
   "homepage": "https://github.com/WiserSolutions/eslint-config#readme",
-  "dependencies": {
-    "lodash.merge": "^4.6.2"
-  },
   "peerDependencies": {
     "eslint": ">=6",
     "eslint-config-prettier": ">=6",
