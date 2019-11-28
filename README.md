@@ -35,3 +35,18 @@ The following extensions are provided:
 - `react` - for applications or component libraries using React,
 - `enzyme` - for applications or component libraries that use Enzyme for testing React components,
 - `quadro-application` - for applications built with the `quadro` framework.
+
+### Combinations
+
+There are also combinations provides to simplify the most common use-cases.
+
+```json
+{
+  "extend": "@wisersolutions/eslint-config/application"
+}
+```
+
+The following combinations are provided:
+
+- `application` - applications using React, Cypress, and Jest,
+- `quadro-application` - applications built with the Quadro framework (plus all of the above).

@@ -1,4 +1,9 @@
 module.exports = {
+  'extends': [
+    '@wisersolutions',
+    '@wisersolutions/eslint-config/react',
+    '@wisersolutions/eslint-config/cypress'
+  ],
   'globals': {
     'Q': true
   },
