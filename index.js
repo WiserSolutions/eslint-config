@@ -24,6 +24,7 @@ module.exports = {
       'anonymous': 'never',
       'named': 'never',
       'asyncArrow': 'always' // Prettier
-    }]
+    }],
+    'require-atomic-updates': 'off' // too many false positives as of yet
   }
 }
