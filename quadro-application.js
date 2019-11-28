@@ -1,13 +1,16 @@
 module.exports = {
   'extends': [
     '@wisersolutions',
-    '@wisersolutions/eslint-config/react',
-    '@wisersolutions/eslint-config/cypress'
+    '@wisersolutions/eslint-config/react'
   ],
   'globals': {
     'Q': true
   },
   'overrides': [
+    {
+      'files': ['cypress/**/*'],
+      'extends': '@wisersolutions/eslint-config/cypress'
+    },
     {
       'files': ['client/**/*.*'],
       'env': {
@@ -17,9 +20,7 @@ module.exports = {
     },
     {
       'files': ['client/**/*.test.js', 'client/test/**/*.*'],
-      'env': {
-        'jest': true
-      },
+      'extends': '@wisersolutions/eslint-config/jest',
       'rules': {
         'no-sparse-arrays': 'off'
       }
