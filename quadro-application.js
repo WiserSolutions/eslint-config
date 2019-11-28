@@ -1,12 +1,16 @@
-const merge = require('lodash.merge')
-
-const baseConfig = require('./index')
-
-module.exports = merge({}, baseConfig, {
+module.exports = {
+  'extends': [
+    '@wisersolutions',
+    '@wisersolutions/eslint-config/react'
+  ],
   'globals': {
     'Q': true
   },
   'overrides': [
+    {
+      'files': ['cypress/**/*'],
+      'extends': '@wisersolutions/eslint-config/cypress'
+    },
     {
       'files': ['client/**/*.*'],
       'env': {
@@ -16,22 +20,9 @@ module.exports = merge({}, baseConfig, {
     },
     {
       'files': ['client/**/*.test.js', 'client/test/**/*.*'],
-      'env': {
-        'jest': true
-      },
+      'extends': '@wisersolutions/eslint-config/jest',
       'rules': {
         'no-sparse-arrays': 'off'
-      }
-    },
-    {
-      'files': ['cypress/**/*.*'],
-      'env': {
-        'jasmine': true,
-        'mocha': true
-      },
-      'globals': {
-        'Cypress': true,
-        'cy': true
       }
     },
     {
@@ -47,4 +38,4 @@ module.exports = merge({}, baseConfig, {
       }
     }
   ]
-})
+}

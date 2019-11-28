@@ -1,14 +1,9 @@
-const merge = require('lodash.merge')
-
-const baseConfig = require('./index')
-
-module.exports = merge({}, baseConfig, {
-  'overrides': [
-    {
-      'files': ['**/*.test.js'],
-      'env': {
-        'jest': true
-      }
-    }
-  ]
-})
+module.exports = {
+  'extends': [
+    'plugin:jest/recommended',
+    'plugin:jest/style'
+  ],
+  'rules': {
+    'jest/expect-expect': 'off' // doesn't support helpers that perform the assertions internally (e.g. `checkSnapshot`)
+  }
+}
