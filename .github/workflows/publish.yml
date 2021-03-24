@@ -1,8 +1,5 @@
 name: Publish
 
-env:
-  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 on:
   push:
     tags:
@@ -20,4 +17,8 @@ jobs:
           scope: '@wisersolutions'
       - uses: actions/checkout@master
       - run: npm i --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.WISER_CI_TOKEN }}
       - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
