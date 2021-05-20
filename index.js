@@ -21,7 +21,7 @@ module.exports = {
     'prefer-const': 'error',
     'semi': ['error', 'never'],
     'space-before-function-paren': ['error', {
-      'anonymous': 'never',
+      'anonymous': 'always', // Prettier
       'named': 'never',
       'asyncArrow': 'always' // Prettier
     }],
