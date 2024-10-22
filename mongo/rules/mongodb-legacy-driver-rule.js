@@ -66,10 +66,12 @@ module.exports = {
         }
         // Collection methods
         if (deprecatedCollectionMethod && !deprecatedCollectionMethodChainedToBulkOp) {
-          const methodToDisplay = node.property.name !== 'remove' ? node.property.name : 'delete'
+          const method = node.property.name;
+          const methodToDisplay = method === 'remove' ? 'delete' : method;
+          const message = `The MongoDB collection method '${method}' is deprecated. You must use ${method === 'count' ? 'countDocuments or estimatedDocumentCount' : `${methodToDisplay}One or ${methodToDisplay}Many`} instead.`;
           context.report({
             node,
-            message: `The MongoDB collection method '${node.property.name}' is fully deprecated. You must use ${methodToDisplay}One or ${methodToDisplay}Many instead.`,
+            message,
           });
         }
         if (isBulkInsert) {

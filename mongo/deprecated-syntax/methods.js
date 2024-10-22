@@ -2,6 +2,7 @@ const deprecatedCollectionMethods = [
   'insert',
   'update',
   'remove',
+  'removeOne',
   'save',
   'findAndModify',
   'findAndRemove',

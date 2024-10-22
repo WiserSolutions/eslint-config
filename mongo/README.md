@@ -59,6 +59,10 @@ npm i -D @wisersolutions/eslint-config
 #!/bin/bash
 RULE_TO_RUN=$1 npx eslint .
 ```
+- Make it executable by running:
+```bash
+chmod +x run-eslint.sh
+```
 
 5. Add these scripts to your `package.json` file
 ```json
