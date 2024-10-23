@@ -1,7 +1,7 @@
 {
   "name": "@wisersolutions/eslint-config",
   "description": "Eslint configurations used by Wiser Solutions, Inc.",
-  "version": "2.1.4",
+  "version": "3.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
