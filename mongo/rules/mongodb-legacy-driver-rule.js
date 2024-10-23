@@ -6,7 +6,7 @@ module.exports = {
     const rules = require('@wisersolutions/eslint-config/mongo/rules/rules');
     const sourceCode = context.getSourceCode();
 
-    const { deprecatedMethods, mongoDBLegacySupportedMethods } = require('@wisersolutions/eslint-config/mongo/deprecated-syntax/methods');
+    const { deprecatedMethods, mongoDBLegacySupportedMethods, allQueryMethods, cursorMethods } = require('@wisersolutions/eslint-config/mongo/deprecated-syntax/methods');
     
     const [
       deprecatedCollectionMethods,
@@ -125,9 +125,12 @@ module.exports = {
         // DB METHODS
         // Check fully deprecated db methods - these should be errors
         if (rules.dbMethodUsesDeprecatedSyntax(node, fullyDeprecatedDBMethods)) {
+          const message = node.property.name === 'close' ?
+            `The close() method is now part of the MongoClient instance, not the database instance. You must refactor your code to close the MongoClient instance instead.` :
+            `The MongoDB db method '${node.property.name}' is fully deprecated. You must update to a supported method.`;
           context.report({
             node,
-            message: `The MongoDB db method '${node.property.name}' is fully deprecated. You must update to a supported method.`,
+            message,
           });
         }
         // Check deprecated db methods that are still supported by mongodb-legacy - these should be warnings
@@ -191,8 +194,15 @@ module.exports = {
 
       CallExpression(node) {
         // CALLBACK API
-        // Check for deprecated callback API - should be warnings
-        if (rules.queryUsesCallbackAPI(node)) {
+        // Check for deprecated callback API - query methods - should be warnings
+        if (rules.queryUsesCallbackAPI(node, allQueryMethods)) {
+          context.report({
+            node,
+            message: `The MongoDB callback API is deprecated, but supported by mongodb-legacy. Consider migrating to the Promise API for future compatability.`,
+          });
+        }
+        // Check for deprecated callback API - cursor methods - should be warnings
+        if (rules.cursorUsesCallbackAPI(node, cursorMethods)) {
           context.report({
             node,
             message: `The MongoDB callback API is deprecated, but supported by mongodb-legacy. Consider migrating to the Promise API for future compatability.`,

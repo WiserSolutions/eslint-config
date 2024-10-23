@@ -58,6 +58,7 @@ const deprecatedDBMethods = [
   'eval',
   'authenticate',
   'logout',
+  'close',
 ];
 
 const mongoDBLegacySupportedDBMethods = [
@@ -122,7 +123,6 @@ const mongoDBLegacySupportedQueryOptions = [
   'snapshot',
 ];
 
-// Currently not used
 const allQueryMethods = [
 'find',
 'findOne',
@@ -155,6 +155,14 @@ const allQueryMethods = [
 'createBulkOp',
 ];
 
+const cursorMethods = [
+  'toArray',
+  'next',
+  'forEach',
+  'hasNext',
+  'close',
+];
+
 module.exports = {
   deprecatedMethods: [
     deprecatedCollectionMethods,
@@ -176,6 +184,6 @@ module.exports = {
     mongoDbLegacySupportedBulkOps,
     mongoDBLegacySupportedQueryOptions,
   ],
-  // Currently not used
   allQueryMethods,
+  cursorMethods,
 }

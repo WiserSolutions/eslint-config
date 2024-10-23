@@ -112,12 +112,28 @@ const queryUsesCallbackAPI = (callExpressionNode, queryMethods) => {
       const firstArg = callExpressionNode.arguments[0];
       const lastArg = callExpressionNode.arguments[callExpressionNode.arguments.length - 1];
       return (
-        firstArg.type === 'ObjectExpression' &&
-        firstArg.properties &&
-        (lastArg.type === 'ArrowFunctionExpression' || lastArg.type === 'FunctionExpression')
+        (
+          ((firstArg.type === 'ObjectExpression' && firstArg.properties) || firstArg.name === 'query') &&
+          (lastArg.type === 'ArrowFunctionExpression' || lastArg.type === 'FunctionExpression' || lastArg.name === 'cb')
+        ) ||
+        (
+          queryMethods.includes(callExpressionNode.callee.property.name) &&
+          lastArg.name === 'cb'
+        )
       )
     }
 }
+
+const cursorUsesCallbackAPI = (callExpressionNode, cursorMethods) => {
+  if (
+    callExpressionNode.callee.type === 'MemberExpression' &&
+    callExpressionNode.callee.property.type === 'Identifier' &&
+    cursorMethods.includes(callExpressionNode.callee.property.name)
+  ) {
+    const firstArg = callExpressionNode.arguments[0];
+    return firstArg.type === 'ArrowFunctionExpression' || firstArg.type === 'FunctionExpression' || firstArg.name === 'cb';
+  }
+};
 
 module.exports = {
   requireStatementDoesNotUseDesctructuring,
@@ -129,5 +145,6 @@ module.exports = {
   bulkOpInitializationUsesDeprecatedSyntax,
   bulkOpUsesDeprecatedSyntax,
   queryOptionUsesDeprecatedSyntax,
-  queryUsesCallbackAPI
+  queryUsesCallbackAPI,
+  cursorUsesCallbackAPI
 };
