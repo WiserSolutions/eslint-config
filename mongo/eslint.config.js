@@ -10,7 +10,7 @@ const allRules = {
   'mongo/mongodb-legacy-deprecated': 'warn', // maybe set this to 'error'
 };
 
-const rules = ruleToRun ? { [`custom/${ruleToRun}`]: allRules[`custom/${ruleToRun}`] } : allRules;
+const rules = ruleToRun ? { [`mongo/${ruleToRun}`]: allRules[`mongo/${ruleToRun}`] } : allRules;
 
 module.exports = 
   {
