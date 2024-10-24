@@ -44,10 +44,12 @@ const constructorUsesDeprecatedSyntax = (newExpressionNode, deprecatedConstructo
 const dbMethodUsesDeprecatedSyntax = (memberExpressionNode, deprecatedMethods) => {
   const dbRegex = /^.*db$/i;
   return (
-    (memberExpressionNode.object.type === 'Identifier' && dbRegex.test(memberExpressionNode.object.name) ||
-    (memberExpressionNode.object.type === 'MemberExpression' && dbRegex.test(memberExpressionNode.object.property.name))) &&
-    deprecatedMethods.includes(memberExpressionNode.property.name)
-  );
+    (
+      (memberExpressionNode.object.type === 'Identifier' && dbRegex.test(memberExpressionNode.object.name)) ||
+      (memberExpressionNode.object.type === 'MemberExpression' && dbRegex.test(memberExpressionNode.object.property.name)) ||
+      (memberExpressionNode.object.property && memberExpressionNode.object?.property.type === 'Identifier' && dbRegex.test(memberExpressionNode.object.property.name))
+    ) &&
+    deprecatedMethods.includes(memberExpressionNode.property.name));
 };
 
 const cursorMethodUsesDeprecatedSyntax = (callExpressionNode, deprecatedMethods) => {
@@ -109,6 +111,8 @@ const queryUsesCallbackAPI = (callExpressionNode, queryMethods) => {
     !methodsToIgnore.includes(callExpressionNode.callee.property.name) &&
     callExpressionNode.arguments.length
   ) {
+    if (!callExpressionNode.arguments || !callExpressionNode.arguments.length) return false;
+    else {
       const firstArg = callExpressionNode.arguments[0];
       const lastArg = callExpressionNode.arguments[callExpressionNode.arguments.length - 1];
       return (
@@ -122,6 +126,7 @@ const queryUsesCallbackAPI = (callExpressionNode, queryMethods) => {
         )
       )
     }
+  }
 }
 
 const cursorUsesCallbackAPI = (callExpressionNode, cursorMethods) => {
@@ -130,8 +135,11 @@ const cursorUsesCallbackAPI = (callExpressionNode, cursorMethods) => {
     callExpressionNode.callee.property.type === 'Identifier' &&
     cursorMethods.includes(callExpressionNode.callee.property.name)
   ) {
-    const firstArg = callExpressionNode.arguments[0];
-    return firstArg.type === 'ArrowFunctionExpression' || firstArg.type === 'FunctionExpression' || firstArg.name === 'cb';
+    if (!callExpressionNode.arguments || !callExpressionNode.arguments.length) return false;
+    else {
+      const firstArg = callExpressionNode.arguments[0];
+      return firstArg.type === 'ArrowFunctionExpression' || firstArg.type === 'FunctionExpression' || firstArg.name === 'cb';
+    }
   }
 };
 
