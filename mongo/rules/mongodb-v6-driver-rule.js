@@ -1,13 +1,22 @@
 const packageName = 'mongodb';
+const { isMongoDBContext } = require('../detection');
+const rules = require('./rules');
+const { deprecatedMethods, allQueryMethods, cursorMethods } = require('../deprecated-syntax/methods');
 
 module.exports = {
   create(context) {
       
-    const rules = require('@wisersolutions/eslint-config/mongo/rules/rules');
     const sourceCode = context.getSourceCode();
 
-    const { deprecatedMethods, allQueryMethods, cursorMethods } = require('@wisersolutions/eslint-config/mongo/deprecated-syntax/methods');
-    
+    // make the MongoDB context determination once at the start
+    const isMongoFile = sourceCode.ast.body.some(node => isMongoDBContext(context, node));
+
+    // if not a MongoDB related file, return empty handlers
+    if (!isMongoFile) {
+      return {};
+    }
+
+    // only set up handlers if we found MongoDB usage
     const [
       deprecatedCollectionMethods,
       deprecatedConnectionMethods,
