@@ -1,7 +1,7 @@
 {
   "name": "@wisersolutions/eslint-config",
   "description": "Eslint configurations used by Wiser Solutions, Inc.",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "main": "index.js",
   "scripts": {
     "test:detection": "MONGO_LINT_DEBUG=true eslint --config mongo/eslint.config.js mongo/tests/mongodb-detection/*.js",
