@@ -102,31 +102,46 @@ const queryOptionUsesDeprecatedSyntax = (callExpressionNode, deprecatedOptions) 
 
 const queryUsesCallbackAPI = (callExpressionNode, queryMethods) => {
   const methodsToIgnore = ['get', 'post', 'put', 'delete', 'patch', 'scroll', 'upload'];
-  const calleesToIgnore = ['router', 'async', 's3', 'lambda', 'utils', 'sns', 'cache', 'sqs'];
+  const calleesToIgnore = ['router', 'async', 's3', 'lambda', 'utils', 'sns', 'cache', 'sqs', 'cy', '$'];
 
-  if (
-    callExpressionNode.callee.type === 'MemberExpression' &&
-    callExpressionNode.callee.property.type === 'Identifier' &&
-    !calleesToIgnore.includes(callExpressionNode.callee.object.name) &&
-    !methodsToIgnore.includes(callExpressionNode.callee.property.name) &&
-    callExpressionNode.arguments.length
-  ) {
-    if (!callExpressionNode.arguments || !callExpressionNode.arguments.length) return false;
-    else {
-      const firstArg = callExpressionNode.arguments[0];
-      const lastArg = callExpressionNode.arguments[callExpressionNode.arguments.length - 1];
-      return (
-        (
-          ((firstArg.type === 'ObjectExpression' && firstArg.properties) || firstArg.name === 'query') &&
-          (lastArg.type === 'ArrowFunctionExpression' || lastArg.type === 'FunctionExpression' || lastArg.name === 'cb')
-        ) ||
-        (
-          queryMethods.includes(callExpressionNode.callee.property.name) &&
-          lastArg.name === 'cb'
-        )
-      )
-    }
+  // check for a valid callee with the right structure
+  if (!callExpressionNode?.callee?.property?.name ||
+    !callExpressionNode.callee.type === 'MemberExpression' ||
+    !callExpressionNode.callee.property.type === 'Identifier') {
+    return false;
   }
+
+  // early return for array methods to avoid false positives
+  if (callExpressionNode.callee.property.name === 'forEach' &&
+    callExpressionNode.callee.object?.type === 'MemberExpression' &&
+    callExpressionNode.callee.object?.property?.name === 'els') {
+    return false;
+  }
+
+  const objectName = callExpressionNode.callee.object?.name;
+  const propertyName = callExpressionNode.callee.property?.name;
+
+  if (objectName &&
+    !calleesToIgnore.includes(objectName) &&
+    propertyName &&
+    !methodsToIgnore.includes(propertyName) &&
+    callExpressionNode.arguments?.length
+  ) {
+    const firstArg = callExpressionNode.arguments[0];
+    const lastArg = callExpressionNode.arguments[callExpressionNode.arguments.length - 1];
+    if (!firstArg || !lastArg) return false;
+
+    // check if this is actually a MongoDB method
+    const isMongoMethod = queryMethods.includes(propertyName);
+
+    return (
+      isMongoMethod && (
+        ((firstArg.type === 'ObjectExpression' && firstArg.properties) || firstArg.name === 'query') &&
+        (lastArg.type === 'ArrowFunctionExpression' || lastArg.type === 'FunctionExpression' || lastArg.name === 'cb')
+      )
+    );
+  }
+  return false;
 }
 
 const cursorUsesCallbackAPI = (callExpressionNode, cursorMethods) => {

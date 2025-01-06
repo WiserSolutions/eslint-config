@@ -15,6 +15,23 @@ const rules = ruleToRun ? { [`mongo/${ruleToRun}`]: allRules[`mongo/${ruleToRun}
 module.exports = 
   {
     files: ['**/*.js'],
+    languageOptions: {
+      parser: require('@babel/eslint-parser'),
+      parserOptions: {
+        requireConfigFile: false,
+        ecmaVersion: 2022,
+        sourceType: 'module',
+        ecmaFeatures: {
+          globalReturn: true,
+          impliedStrict: true,
+        },
+        babelOptions: {
+          babelrc: false,
+          configFile: false,
+          presets: ['@babel/preset-env']
+        }
+      }
+    },
     plugins: {
       mongo: {
         rules: {
